@@ -4,6 +4,8 @@ from rolepermissions.decorators import has_permission_decorator
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib import auth
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 from .models import Users
 
@@ -49,6 +51,10 @@ def logout(request):
     request.session.flush()
     return redirect(reverse('login'))
 
+@has_permission_decorator('cadastrar_vendedor')
 def excluir_usuario(request, id):
-    return HttpResponse(id)
+    vendedor = get_object_or_404(Users, id=id)
+    vendedor.delete()
+    messages.add_message(request, messages.SUCCESS, 'Vendedor excluído com sucesso')
+    return redirect(reverse('cadastrar-vendedor'))
     
