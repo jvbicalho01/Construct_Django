@@ -1,46 +1,65 @@
-<form action="{% url 'add-produto' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label>Imagens</label>
-    <input type="file" name="imagens" multiple>
+{% extends 'base.html' %}
 
-    <br>
-    <br>
+{% block 'body' %}
 
-    <label>Nome</label>
-    <input type="text" name="nome">
+    <div class="container">
 
-    <br>
-    <br>
+        {% if messages %}
+            <br>
+            {% for message in messages %}
+                <div class="alert {{message.tags}}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
 
-    <label>Selecione a categoria do produto</label>
-    <select name="categoria">
-        {% for categoria in categorias %}
-            <option value="{{categoria.id}}">{{ categoria.titulo }}</option>
-        {% endfor %}
-    </select>
+        <form action="{% url 'add-produto' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <br>
+            <label>Imagens</label>
+            <input class="form-control" type="file" name="imagens" multiple>
 
-    <br>
-    <br>
+            <br>
+            <br>
 
-    <label>Estoque inicial</label>
-    <input type="number" name="quantidade">
+            <label>Nome</label>
+            <input class="form-control" type="text" name="nome">
 
-    <br>
-    <br>
+            <br>
+            <br>
 
-    <label>Preço de compra</label>
-    <input type="number" name="preco_compra">
+            <label>Selecione a categoria do produto</label>
+            <select class="form-control" name="categoria">
+                {% for categoria in categorias %}
+                <option value="{{categoria.id}}">{{ categoria.titulo }}</option>
+                {% endfor %}
+            </select>
 
-    <br>
-    <br>
+            <br>
+            <br>
 
-    <label>Preço de venda</label>
-    <input type="number" name="preco_venda">
+            <label>Estoque inicial</label>
+            <input class="form-control" type="number" name="quantidade">
 
-    <br>
-    <br>
+            <br>
+            <br>
 
+            <label>Preço de compra</label>
+            <input class="form-control" type="number" name="preco_compra">
 
-    <input type="submit" value="Enviar">
+            <br>
+            <br>
 
-</form>
+            <label>Preço de venda</label>
+            <input class="form-control" type="number" name="preco_venda">
+
+            <br>
+            <br>
+
+            <input class="btn btn-success" type="submit" value="Enviar">
+
+        </form>
+
+    </div>
+
+{% endblock %}

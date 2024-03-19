@@ -5,6 +5,9 @@ from datetime import date
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
+from django.shortcuts import redirect
+from django.urls import reverse
+from django.contrib import messages
 
 from .models import Categoria, Produto, Imagem
 
@@ -49,8 +52,8 @@ def add_produto(request):
                                             sys.getsizeof(output),
                                             None)
 
-
             img_dj = Imagem(imagem=img_final, produto=produto)
             img_dj.save()
 
-        return HttpResponse('FOI')
+        messages.add_message(request, messages.SUCCESS, 'Produto cadastrado com sucesso')
+        return redirect(reverse('add-produto'))
