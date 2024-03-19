@@ -20,6 +20,8 @@ def cadastrar_vendedor(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
 
+        # TODO: Fazer validações dos dados
+
         user = Users.objects.filter(email=email)
 
         if user.exists():
