@@ -14,7 +14,8 @@ from .models import Categoria, Produto, Imagem
 def add_produto(request):
     if request.method =="GET":
         categorias = Categoria.objects.all()
-        return render(request, 'add_produto.html', {'categorias': categorias})
+        produtos = Produto.objects.all()
+        return render(request, 'add_produto.html', {'categorias': categorias, 'produtos': produtos})
     elif request.method == "POST":
         nome = request.POST.get('nome')
         categoria = request.POST.get('categoria')
@@ -30,7 +31,6 @@ def add_produto(request):
                           preco_venda=preco_venda)
         
         produto.save()
-
 
         for f in imagens:
             name = f'{date.today()}-{produto.id}.jpg'
